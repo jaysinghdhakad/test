@@ -4,14 +4,35 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { PrivyProvider } from '@privy-io/react-auth';
+import { toSolanaWalletConnectors } from '@privy-io/react-auth/solana';
+
+const solanaConnectors = toSolanaWalletConnectors({
+  // By default, shouldAutoConnect is enabled
+  shouldAutoConnect: false,
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <PrivyProvider
       appId={process.env.REACT_APP_PRIVY_APP_ID}
-      onSuccess={(user) => console.log(`User ${user.id} logged in!`)}
-    >
+
+      config={{
+        // Customize Privy's appearance in your app
+        appearance: {
+          theme: 'light',
+          accentColor: '#676FFF',
+          logo: 'https://your-logo-url',
+        },
+        externalWallets: {
+          solana: {
+            connectors: solanaConnectors,
+          }
+        },
+
+        createSolanaWallet: true
+        // Create embedded wallets for users who don't have a wallet
+      }}    >
       <App />
     </PrivyProvider>
   </React.StrictMode>
