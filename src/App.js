@@ -8,11 +8,11 @@ import { useSolanaWallets } from '@privy-io/react-auth/solana';
 
 
 function App() {
-  const { ready, authenticated, user, login, logout } = usePrivy();
+  const { ready, authenticated, user, login } = usePrivy();
   const {createWallet, wallets} = useSolanaWallets(); // or useWallets()
   const {delegateWallet} = useDelegatedActions();
 
-  if(authenticated && wallets[0] == undefined){ 
+  if(authenticated && wallets[0] === undefined){ 
     createWallet()
   
   }
